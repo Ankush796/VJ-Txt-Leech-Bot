@@ -1,0 +1,22 @@
+# Dockerfile.worker (worker)
+FROM python:3.10.8-slim-bullseye
+
+WORKDIR /app
+
+COPY requirements.txt /app/
+
+RUN apt-get update -y && apt-get upgrade -y \
+ && apt-get install -y --no-install-recommends gcc libffi-dev musl-tools ffmpeg aria2 python3-pip wget \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install --no-cache-dir --upgrade pip \
+ && pip3 install --no-cache-dir --requirement requirements.txt
+
+COPY . /app/
+
+# Ensure logs show up in stdout
+ENV PYTHONUNBUFFERED=1
+
+# Run the bot in foreground
+CMD ["python3", "main.py"]
