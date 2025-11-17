@@ -1,3 +1,4 @@
+# Dockerfile (for web)
 FROM python:3.10.8-slim-bullseye
 
 # working dir first
@@ -18,7 +19,7 @@ RUN pip3 install --no-cache-dir --upgrade pip \
 # copy rest of the app
 COPY . /app/
 
-# Expose port (optional, but useful for local testing)
+# Expose port for local testing
 EXPOSE 8000
 
 # Run gunicorn in foreground, logs to stdout/stderr, longer timeout
