@@ -1,6 +1,7 @@
 FROM python:3.10.8-slim-bullseye
 
 WORKDIR /app
+
 COPY requirements.txt /app/
 
 RUN apt-get update -y && apt-get upgrade -y \
@@ -15,4 +16,4 @@ COPY . /app/
 
 EXPOSE 8000
 
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "--access-logfile", "-", "--error-logfile", "-", "--timeout", "120", "app:app"]
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app:app"]
