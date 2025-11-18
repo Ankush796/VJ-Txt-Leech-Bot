@@ -1,3 +1,4 @@
+# Dockerfile.worker (worker)
 FROM python:3.10.8-slim-bullseye
 
 WORKDIR /app
@@ -13,4 +14,5 @@ RUN pip3 install --no-cache-dir --upgrade pip \
 
 COPY . /app/
 
+# Worker runs bot in foreground (pyrogram Client.run() blocks — good)
 CMD ["python3", "main.py"]
